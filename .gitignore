@@ -1,0 +1,8 @@
+#Generated resumes not added
+generated-resumes
+
+#All possible log files generated
+*.log
+
+#All tex files that may be used in local directory
+*.tex
