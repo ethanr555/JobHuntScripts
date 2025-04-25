@@ -12,19 +12,20 @@ resumefile=resume-default.tex
 jobname=""
 jobcompany=""
 
-for (( i=1; i < $#; i++ )); do
-	if [[ ${!i:0:1} == "-" ]]; then
-		case ${!i:1:1} in
-			d) ((i++))
-				resumefile=$(defaultoption ${!i})
-			       	;;
-		esac
-	else
-		jobname=${!i}
-		((i++))
-		jobcompany=${!i}
-		break
-	fi
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		-d)
+			resumefile=$(defaultoption $2)
+			shift
+			shift
+			;;
+		*)
+			jobname=$1
+			jobcompany=$2
+			shift
+			shift
+			;;
+	esac
 done
 
 if [[ ! -f $resumefile ]]; then
