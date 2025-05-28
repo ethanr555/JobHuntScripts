@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Determine resume template file to read in.
 defaultoption() {
 	if [[ -f $1 ]]; then
 		echo $1
@@ -12,9 +13,11 @@ resumefile=resume-default.tex
 jobname=""
 jobcompany=""
 
+# Read cmd arguments
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-d)
+		# Change resume template file read
 			resumefile=$(defaultoption $2)
 			shift
 			shift
@@ -28,6 +31,7 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+# Template file does not exist, end with exit 2
 if [[ ! -f $resumefile ]]; then
 	echo $resumefile does not exist! >&2
 	exit 2
@@ -40,6 +44,7 @@ fi
 filename="${jobname}_${jobcompany}_$(date +%I%M%S_%m%d%y)"
 touch generated-resumes/$filename.tex
 
+#See if file was successfully able to be created.
 if [[  $? -ne 0 ]]; then
 	echo Invalid name for resume file. Double check job name and company name for invalid characters >&2
 	exit 1
@@ -55,6 +60,7 @@ if [  $? -ne 0 ]; then
 	echo Resume PDF generation failed. Check error logs of pdflatex for more info >&2
 	exit 3
 fi
+#Clean up generated helper LaTeX files.
 rm generated-resumes/*.aux
 rm generated-resumes/*.out
 

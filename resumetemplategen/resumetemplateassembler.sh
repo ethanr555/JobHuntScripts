@@ -20,6 +20,7 @@ job2item3=""
 job2item4=""
 force=1 #Whether to force output file overwriting
 
+# Parse cmd arguments
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-i|--input)
@@ -74,6 +75,7 @@ elif [[ -f $resultfile && $force -eq 1 ]]; then
 	exit $(HandleExit 1)
 fi
 
+# Read in arguments from file
 if [[ $varfile != "" ]]; then
 	source $varfile
 fi

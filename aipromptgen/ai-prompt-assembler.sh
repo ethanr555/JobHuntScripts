@@ -12,6 +12,7 @@ fi
 js=$(cat $inputjs | grep -v "var prompt")
 output="var prompt = "\'$(cat $prompt)\'\;$js
 
+# Tests if xclip is installed on machine, otherwise exit 1.
 command -v xclip &> /dev/null
 if [[ $? ]]; then
 	echo $output | xclip
